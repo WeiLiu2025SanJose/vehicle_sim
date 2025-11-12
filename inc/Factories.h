@@ -33,3 +33,8 @@ class EchoFactory : public VehicleFactory {
 public:
     std::unique_ptr<Vehicle> createVehicle() override;
 };
+/*
+class FlyFactory : public VehicleFactory {
+public:
+    std::unique_ptr<Vehicle> createVehicle() override;
+};*/

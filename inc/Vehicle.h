@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <atomic>
-#include <memory>
 #include "ChargeStationManager.h"
 
 // base vehicle class for the simulation test
@@ -21,8 +20,10 @@ public:
     double getEnergyUse() const { return energyUse; }
     int getPassengers() const { return passengers; }
     double getFaultPerHour() const { return faultPerHour; }
-
 protected:
+    virtual void registerStats();
+
+private:
     std::string vehicleType;
     int cruiseSpeed;
     int batteryCapacity;
