@@ -1,24 +1,26 @@
 #pragma once
-#include <string>
 #include <unordered_map>
-#include <iostream>
+#include <memory>
+#include <string>
+#include "BaseStats.h"
+#include "Vehicle.h"
+#include <mutex>
 
-class Vehicle;
-
+//Singleton Vehicle Stats to store all the accumulated stat per type to statsMap
 class VehicleStats {
 public:
+    static VehicleStats& getInstance();
+    // Record a vehicle's run
     void record(const std::string& type, double ratio, const Vehicle& v);
-    void logAll() const;
+    // it will set to common VehicleStatsData, it may be set to specific stat data per type
+    void setStatData(const std::string& type, std::unique_ptr<BaseStats> stats);
 
-private:
-    struct Stats {
-        double totalTime = 0;
-        double totalTestVehicle = 0;
-        double totalDistance = 0;
-        double totalChargeTime = 0;
-        double totalPassengersMiles = 0;
-        double totalFaults = 0;
-    };
+    // Log all stats
+    void logAll();
 
-    std::unordered_map<std::string, Stats> statsMap;
+protected:
+    // Map vehicle type -> polymorphic stats object for each type
+    std::unordered_map<std::string, std::unique_ptr<BaseStats>> statsMap;
+    std::mutex statsMutex;
 };
+

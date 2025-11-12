@@ -1,16 +1,17 @@
 #pragma once
 #include <string>
 #include <atomic>
+#include <memory>
 #include "ChargeStationManager.h"
 
-class VehicleStats;  // forward declaration
-
+// base vehicle class for the simulation test
 class Vehicle {
 public:
-    Vehicle(int speed, int capacity, double time, double energy, int passenger, double fault, const std::string& type);
-    virtual ~Vehicle() = default;
+    Vehicle(const std::string& type, int speed, int capacity, double time,
+            double energy, int passenger, double fault);
+    virtual ~Vehicle()= default;
 
-    virtual void run(std::atomic<bool>& stopFlag, ChargeStationManager& stationManager, VehicleStats& stats);
+    virtual void run(std::atomic<bool>& stopFlag, ChargeStationManager& stationManager);
     virtual void charge(ChargeStationManager& stationManager);
 
     const std::string& getType() const { return vehicleType; }
