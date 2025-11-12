@@ -6,7 +6,7 @@
 #include <chrono>
 #include <random>
 #include "Vehicle.h"
-#include "VehicleStats.h"
+#include "VehicleStatsManager.h"
 #include "ChargeStationManager.h"
 #include "Factories.h"
 
