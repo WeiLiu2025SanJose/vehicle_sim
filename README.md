@@ -81,4 +81,3 @@ Passenger miles
 Global singleton managing all vehicle statistics.
 Allow vehicles to record events (record())
 Provide debug/log output (printAll())
-
