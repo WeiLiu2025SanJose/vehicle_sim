@@ -1,27 +1,64 @@
-#include "VehicleStatsManager.h"
 #include "VehicleStatsData.h"
-
+#include "Vehicle.h"
 #include <iostream>
-#include <mutex>
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
-void VehicleStatsData::record(double ratio, const Vehicle& v) {
+void VehicleStatsData::record(const Vehicle& v,StatType type) {
     std::lock_guard<std::mutex> lock(statsMutex);
-    totalTestVehicle += ratio;
-    totalTime += ratio * 3600.0 * (v.getBatteryCapacity() / v.getEnergyUse()) / v.getCruiseSpeed();
-    averageTime = totalTime/totalTestVehicle;
-    totalDistance += ratio * (v.getBatteryCapacity() / v.getEnergyUse());
-    averageDistance = totalDistance/totalTestVehicle;
-    totalChargeTime += ratio * v.getTimeToCharge();
-    averageChargeTime = totalChargeTime/totalTestVehicle;
-    totalFaults += ratio * v.getFaultPerHour() * (v.getBatteryCapacity() / v.getEnergyUse()) / v.getCruiseSpeed();
-    totalPassengersMiles += ratio * v.getPassengers() * (v.getBatteryCapacity() / v.getEnergyUse());
+    switch (type) {
+        case StatType::TotalTestVehicle:
+            totalTestVehicle++;
+            averageTime = totalTestVehicle!=0?totalTime / totalTestVehicle:0;
+            break;
+
+        case StatType::TotalTime:
+            totalTime += v.getRunningTime();
+            averageTime = totalTestVehicle!=0?totalTime / totalTestVehicle:0;
+            totalDistance=totalTime*v.getCruiseSpeed()/3600;
+            averageDistance = totalDistance/totalTestVehicle;
+            totalFaults=totalTime*v.getFaultPerHour()/3600;
+            totalPassengersMiles=totalTime*v.getPassengers()*v.getCruiseSpeed()/3600;
+            break;
+
+        case StatType::TotalChargeCycle:
+            totalChargedVehicle++;;
+	    averageChargeTime = totalChargedVehicle!=0?totalChargeTime / totalChargedVehicle:0;
+            break;
+
+        case StatType::TotalChargeTime:
+	    totalChargeTime += v.getChargingTime();
+	    averageChargeTime = totalChargedVehicle!=0?totalChargeTime / totalChargedVehicle:0;	 
+            break;
+
+        default:
+            break;
+    }
 }
 
 void VehicleStatsData::log(const std::string& type) const {
-    std::cout << type << " → averageTime: " << averageTime
-              << " averageDistance: " << averageDistance
-              << " averageChargeTime: " << averageChargeTime
-              << " totalFaults: " << totalFaults
-              << " totalPassengersMiles: " << totalPassengersMiles << std::endl;
-}
+    std::lock_guard<std::mutex> lock(statsMutex);
 
+    // Format the log line
+    std::ostringstream oss;
+    oss << type
+        << " → averageTime: " << averageTime << " s"
+        << " totalTestVehicle: " << totalTestVehicle
+        << " totalChargedVehicle: " << totalChargedVehicle
+        << " averageDistance: " << averageDistance << " miles"
+        << " averageChargeTime: " << averageChargeTime << " s"
+        << " totalFaults: " << totalFaults
+        << " totalPassengersMiles: " << totalPassengersMiles <<" miles";
+
+    std::string line = oss.str();
+
+    // console print ----
+    std::cout << line << std::endl;
+
+    // file logging
+    std::ofstream out("stats_log.txt", std::ios::app);
+    if (out) {
+        out << line << "\n";
+    }
+}

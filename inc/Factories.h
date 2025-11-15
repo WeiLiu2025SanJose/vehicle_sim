@@ -1,14 +1,15 @@
 #pragma once
-#include "Vehicle.h"
 #include <memory>
+#include "Vehicle.h"
 
-// factory to create specific vehicle per type
+//Implements factory classes for different vehicle types.
 class VehicleFactory {
 public:
     virtual ~VehicleFactory() = default;
     virtual std::unique_ptr<Vehicle> createVehicle() = 0;
 };
 
+//we may consider for Generic Vehicle Factory
 class AlphaFactory : public VehicleFactory {
 public:
     std::unique_ptr<Vehicle> createVehicle() override;
@@ -33,8 +34,3 @@ class EchoFactory : public VehicleFactory {
 public:
     std::unique_ptr<Vehicle> createVehicle() override;
 };
-/*
-class FlyFactory : public VehicleFactory {
-public:
-    std::unique_ptr<Vehicle> createVehicle() override;
-};*/

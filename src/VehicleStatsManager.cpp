@@ -1,32 +1,30 @@
 #include "VehicleStatsManager.h"
 #include "VehicleStatsData.h"
-#include <mutex>
 
 VehicleStatsManager& VehicleStatsManager::getInstance() {
     static VehicleStatsManager instance;
     return instance;
 }
 
-// Record for a vehicle type
-void VehicleStatsManager::record(const std::string& type, double ratio, const Vehicle& v) {
+void VehicleStatsManager::record(const std::string& type, const Vehicle& v,StatType statType) {
     std::lock_guard<std::mutex> lock(statsMutex);
-
+    // check first if the type already is in the map, assume stat data will be same for one type.
     if (statsMap.find(type) == statsMap.end()) {
-    
-        // Safe: VehicleStatsData fully defined here
         statsMap[type] = std::make_unique<VehicleStatsData>();
     }
-    statsMap[type]->record(ratio, v);
+    statsMap[type]->record(v,statType);
 }
-void VehicleStatsManager::setStatData(const std::string& type, std::unique_ptr<BaseStats> stats){
+
+void VehicleStatsManager::setStatData(const std::string& type, std::unique_ptr<BaseStats> stats) {
     std::lock_guard<std::mutex> lock(statsMutex);
     if (statsMap.find(type) == statsMap.end()) {
         statsMap[type] = std::move(stats);
     }
 }
-// Log all types
+
 void VehicleStatsManager::printAll() {
-    for (const auto& [type, stats] : statsMap) {
-        stats->log(type);
+    std::lock_guard<std::mutex> lock(statsMutex);
+    for (const auto& kv : statsMap) {
+        kv.second->log(kv.first);
     }
 }

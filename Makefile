@@ -1,30 +1,53 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Iinc
+CXX := g++
+CXXFLAGS := -std=c++17 -Wall -Wextra -pthread -Iinc
 
-SRC_DIR = src
-OBJ_DIR = build
-BIN_DIR = bin
-TARGET = $(BIN_DIR)/simulation
+SRC_DIR := src
+BUILD_DIR := build
+BIN_DIR := bin
+TEST_DIR := tests
 
-# Collect all cpp files and map them to object files in build/
-SRC = $(wildcard $(SRC_DIR)/*.cpp)
-OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC))
+# Collect sources and objects
+SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
 
-# Default target
-all: $(TARGET)
+# Exclude main.o for test builds
+OBJS_NO_MAIN := $(filter-out $(BUILD_DIR)/main.o,$(OBJS))
 
-# Link object files into final binary
-$(TARGET): $(OBJ)
+# Test source files
+TEST_SRCS := $(wildcard $(TEST_DIR)/*.cpp)
+TEST_OBJS := $(patsubst $(TEST_DIR)/%.cpp,$(BUILD_DIR)/$(TEST_DIR)/%.o,$(TEST_SRCS))
+
+# Default target: build main app
+all: $(BIN_DIR)/simulation
+
+# Main application binary
+$(BIN_DIR)/simulation: $(OBJS)
 	@mkdir -p $(BIN_DIR)
+	@echo "Linking simulation binary..."
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# Compile each .cpp to .o in build/
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
-	@mkdir -p $(OBJ_DIR)
+# ---- ENABLE UNIT TESTING FOR test TARGET ----
+test: CXXFLAGS += -DUNIT_TESTING
+# Test runner binary
+test: $(BIN_DIR)/test_runner
+
+$(BIN_DIR)/test_runner: $(OBJS_NO_MAIN) $(TEST_OBJS)
+	@mkdir -p $(BIN_DIR)
+	@echo "Linking test runner..."
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+# Compile .cpp files from src/
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Cleanup
-clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+# Compile .cpp files from tests/
+$(BUILD_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-.PHONY: all clean
+# Clean all build and binary files
+clean:
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
+
+.PHONY: all clean test

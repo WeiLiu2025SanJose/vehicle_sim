@@ -1,43 +1,46 @@
 #include "Vehicle.h"
 #include "VehicleStatsManager.h"
-#include <thread>
-#include <chrono>
-#include <iostream>
 #include "VehicleStatsData.h"
-
+#include <algorithm>
+#include <cmath>
 using namespace std;
-using namespace std::chrono;
 
-Vehicle::Vehicle(const string& type,int speed, int capacity, double time, double energy, int passenger, double fault)
-    : vehicleType(type), cruiseSpeed(speed), batteryCapacity(capacity),
-      timeToCharge(time), energyUse(energy), passengers(passenger),
-      faultPerHour(fault) {}
-      
-// Base class registers standard VehicleStatsData
+Vehicle::Vehicle(const std::string& type, int speed, int capacity, double timeHours,
+                 double energy, int passenger, double fault)
+    : vehicleType(type),
+      cruiseSpeed(speed),
+      batteryCapacity(capacity),
+      timeToCharge(timeHours),
+      energyUse(energy),
+      passengers(passenger),
+      faultPerHour(fault),
+      batteryRatio(1.0),
+      timeSliceMs(100)
+{
+    // registerStats be called by concrete vehicle constructors
+}
+
 void Vehicle::registerStats() {
     auto& vs = VehicleStatsManager::getInstance();
-    vs.setStatData(vehicleType, std::make_unique<VehicleStatsData>());
+    vs.setStatData(getType(), std::make_unique<VehicleStatsData>());
 }
 
-void Vehicle::run(atomic<bool>& stopFlag, ChargeStationManager& stationManager) {
-    while (!stopFlag) {
-        double driveSec = 3600 * (batteryCapacity / energyUse) / cruiseSpeed;
-        double elapsed = 0;
-        while (elapsed < driveSec && !stopFlag) {
-            double slice = min(1.0, driveSec - elapsed);
-            this_thread::sleep_for(duration<double>(slice));
-            elapsed += slice;
-        }
-        double ratio = stopFlag ? elapsed / driveSec : 1.0;
-        VehicleStatsManager::getInstance().record(vehicleType, ratio, *this);
-        if (!stopFlag)
-            charge(stationManager);
-    }
+void Vehicle::run() {
+    double driveSec = 3600.0 * (this->getBatteryCapacity()/this->getEnergyUse() ) / this->getCruiseSpeed();
+    runningTime++;
+    if (runningTime >= driveSec) this->batteryRatio = 0.0;
 }
 
-void Vehicle::charge(ChargeStationManager& stationManager) {
-    stationManager.acquire(vehicleType);
-    this_thread::sleep_for(chrono::milliseconds(100));
-    stationManager.release(vehicleType);
+void Vehicle::charge() {
+    double timeToChargeSec = std::max(1.0, getTimeToCharge() * 3600.0);
+    chargingTime++;
+    if (chargingTime >= timeToChargeSec) this->batteryRatio = 1.0;
 }
 
+bool Vehicle::needsCharge() const {
+    return batteryRatio <= 0.0;
+}
+
+bool Vehicle::isFullyCharged() const {
+    return batteryRatio >= 1.0;
+}

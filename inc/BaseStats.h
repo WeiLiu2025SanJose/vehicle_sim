@@ -2,13 +2,18 @@
 #include <string>
 #include "Vehicle.h"
 
+enum class StatType {
+    TotalTestVehicle,
+    TotalTime,
+    TotalChargeCycle,
+    TotalChargeTime,
+    // Add more as needed
+};
+
+// Provides an abstract interface for recording and logging statistical data of vehicles.
 class BaseStats {
 public:
     virtual ~BaseStats() = default;
-
-    // Record data from a vehicle run and accumulate data per type
-    virtual void record(double ratio, const Vehicle& v) = 0;
-
-    // retrieve the accumulated stat per type
+    virtual void record(const Vehicle& v,StatType type) = 0;
     virtual void log(const std::string& type) const = 0;
 };

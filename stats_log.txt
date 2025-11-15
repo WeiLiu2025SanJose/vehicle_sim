@@ -1,0 +1,34 @@
+Alpha → averageTime: 1962 totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 65.4 averageChargeTime: 0 totalFaults: 0.545 totalPassengersMiles: 1046.4
+Echo → averageTime: 1962 totalTestVehicle: 5 totalChargedVehicle: 0 averageDistance: 16.35 averageChargeTime: 0 totalFaults: 1.66225 totalPassengersMiles: 163.5
+Bravo → averageTime: 1962 totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 54.5 averageChargeTime: 0 totalFaults: 0.1635 totalPassengersMiles: 817.5
+Charlie → averageTime: 1962 totalTestVehicle: 5 totalChargedVehicle: 0 averageDistance: 87.2 averageChargeTime: 0 totalFaults: 0.13625 totalPassengersMiles: 1308
+Dela → averageTime: 1962 totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 49.05 averageChargeTime: 0 totalFaults: 0.3597 totalPassengersMiles: 294.3
+Echo → averageTime: 1954s totalTestVehicle: 6 totalChargedVehicle: 0 averageDistance: 16.2833 miles averageChargeTime: 0 s totalFaults: 1.98657 totalPassengersMiles: 195.4 miles
+Alpha → averageTime: 1954s totalTestVehicle: 6 totalChargedVehicle: 0 averageDistance: 65.1333 miles averageChargeTime: 0 s totalFaults: 0.814167 totalPassengersMiles: 1563.2 miles
+Dela → averageTime: 1954s totalTestVehicle: 5 totalChargedVehicle: 0 averageDistance: 48.85 miles averageChargeTime: 0 s totalFaults: 0.597056 totalPassengersMiles: 488.5 miles
+Bravo → averageTime: 1954s totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 54.2778 miles averageChargeTime: 0 s totalFaults: 0.162833 totalPassengersMiles: 814.167 miles
+Echo → averageTime: 1959 s totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 16.325 miles averageChargeTime: 0 s totalFaults: 0.995825 totalPassengersMiles: 97.95 miles
+Alpha → averageTime: 1959 s totalTestVehicle: 6 totalChargedVehicle: 0 averageDistance: 65.3 miles averageChargeTime: 0 s totalFaults: 0.81625 totalPassengersMiles: 1567.2 miles
+Charlie → averageTime: 1959 s totalTestVehicle: 6 totalChargedVehicle: 0 averageDistance: 87.0667 miles averageChargeTime: 0 s totalFaults: 0.16325 totalPassengersMiles: 1567.2 miles
+Dela → averageTime: 1959 s totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 48.975 miles averageChargeTime: 0 s totalFaults: 0.35915 totalPassengersMiles: 293.85 miles
+Bravo → averageTime: 1959 s totalTestVehicle: 2 totalChargedVehicle: 0 averageDistance: 54.4167 miles averageChargeTime: 0 s totalFaults: 0.108833 totalPassengersMiles: 544.167 miles
+Echo → averageTime: 1951 s totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 16.2583 miles averageChargeTime: 0 s totalFaults: 0.991758 totalPassengersMiles: 97.55 miles
+Alpha → averageTime: 1951 s totalTestVehicle: 8 totalChargedVehicle: 0 averageDistance: 65.0333 miles averageChargeTime: 0 s totalFaults: 1.08389 totalPassengersMiles: 2081.07 miles
+Bravo → averageTime: 1951 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 54.1944 miles averageChargeTime: 0 s totalFaults: 0.216778 totalPassengersMiles: 1083.89 miles
+Charlie → averageTime: 1951 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 86.7111 miles averageChargeTime: 0 s totalFaults: 0.108389 totalPassengersMiles: 1040.53 miles
+Dela → averageTime: 1951 s totalTestVehicle: 1 totalChargedVehicle: 0 averageDistance: 48.775 miles averageChargeTime: 0 s totalFaults: 0.119228 totalPassengersMiles: 97.55 miles
+Alpha → averageTime: 1946 s totalTestVehicle: 1 totalChargedVehicle: 0 averageDistance: 64.8667 miles averageChargeTime: 0 s totalFaults: 0.135139 totalPassengersMiles: 259.467 miles
+Echo → averageTime: 1946 s totalTestVehicle: 8 totalChargedVehicle: 0 averageDistance: 16.2167 miles averageChargeTime: 0 s totalFaults: 2.63791 totalPassengersMiles: 259.467 miles
+Bravo → averageTime: 1946 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 54.0556 miles averageChargeTime: 0 s totalFaults: 0.216222 totalPassengersMiles: 1081.11 miles
+Charlie → averageTime: 1946 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 86.4889 miles averageChargeTime: 0 s totalFaults: 0.108111 totalPassengersMiles: 1037.87 miles
+Dela → averageTime: 1946 s totalTestVehicle: 3 totalChargedVehicle: 0 averageDistance: 48.65 miles averageChargeTime: 0 s totalFaults: 0.356767 totalPassengersMiles: 291.9 miles
+Echo → averageTime: 3 s totalTestVehicle: 2 totalChargedVehicle: 0 averageDistance: 0.025 miles averageChargeTime: 0 s totalFaults: 0.00101667 totalPassengersMiles: 0.1 miles
+Dela → averageTime: 3 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 0.075 miles averageChargeTime: 0 s totalFaults: 0.000733333 totalPassengersMiles: 0.6 miles
+Charlie → averageTime: 3 s totalTestVehicle: 2 totalChargedVehicle: 0 averageDistance: 0.133333 miles averageChargeTime: 0 s totalFaults: 8.33333e-05 totalPassengersMiles: 0.8 miles
+Bravo → averageTime: 3 s totalTestVehicle: 7 totalChargedVehicle: 0 averageDistance: 0.0833333 miles averageChargeTime: 0 s totalFaults: 0.000583333 totalPassengersMiles: 2.91667 miles
+Alpha → averageTime: 573.571 s totalTestVehicle: 7 totalChargedVehicle: 0 averageDistance: 19.119 miles averageChargeTime: 0 s totalFaults: 0.278819 totalPassengersMiles: 535.333 miles
+Echo → averageTime: 3 s totalTestVehicle: 2 totalChargedVehicle: 0 averageDistance: 0.025 miles averageChargeTime: 0 s totalFaults: 0.00101667 totalPassengersMiles: 0.1 miles
+Dela → averageTime: 3 s totalTestVehicle: 4 totalChargedVehicle: 0 averageDistance: 0.075 miles averageChargeTime: 0 s totalFaults: 0.000733333 totalPassengersMiles: 0.6 miles
+Charlie → averageTime: 3 s totalTestVehicle: 2 totalChargedVehicle: 0 averageDistance: 0.133333 miles averageChargeTime: 0 s totalFaults: 8.33333e-05 totalPassengersMiles: 0.8 miles
+Bravo → averageTime: 3 s totalTestVehicle: 7 totalChargedVehicle: 0 averageDistance: 0.0833333 miles averageChargeTime: 0 s totalFaults: 0.000583333 totalPassengersMiles: 2.91667 miles
+Alpha → averageTime: 573.571 s totalTestVehicle: 7 totalChargedVehicle: 0 averageDistance: 19.119 miles averageChargeTime: 0 s totalFaults: 0.278819 totalPassengersMiles: 535.333 miles

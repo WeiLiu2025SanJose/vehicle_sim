@@ -2,17 +2,22 @@
 #include <string>
 #include <mutex>
 #include <condition_variable>
-#include <iostream>
-// charge station manage the station's acquire/release
+#include <atomic>
+
+//Manages the charging station resources and synchronizes access using a mutex and condition variable.
 class ChargeStationManager {
 public:
     explicit ChargeStationManager(int totalStations);
 
-    void acquire(const std::string& carName);
-    void release(const std::string& carName);
+    // Acquire blocks until a slot is available
+    void acquire(std::atomic<bool>& stopFlag);
+    void release();
+
+    int getAvailable() const;
+    void stopAll();
 
 private:
     int availableStations;
-    std::mutex mtx;
+    mutable std::mutex mtx;
     std::condition_variable cv;
 };
