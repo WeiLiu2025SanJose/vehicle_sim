@@ -4,7 +4,17 @@ Build and Test
 
 make
 
-./bin/simulation
+./bin/simulation 
+
+or we could run that with three parameter
+
+./simulation <duration_seconds> <num_stations> <timeSliceMs>
+
+duration_seconds:Total simulated time in simulated seconds, default is 2000
+
+num_stations:Number of charging stations in the simulation,default is 3.
+
+timeSliceMs:Real milliseconds per “1 simulated second.” Controls simulation speed, default is 10ms
 
 2.Build test runner:
 
